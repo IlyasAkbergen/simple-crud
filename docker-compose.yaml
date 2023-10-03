@@ -1,0 +1,51 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    ports:
+      - '3305:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - app-network
+
+  web:
+    image: nginx:alpine
+    ports:
+      - "8055:80"
+    volumes:
+      - ./:/var/www/code
+      - ./docker/dev/nginx/hosts:/etc/nginx/conf.d
+      - ./docker/dev/nginx/logs:/var/log/nginx
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: docker
+      dockerfile: dev/app/Dockerfile
+    user: 1001:1001
+    working_dir: /var/www/code
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./docker/dev/app/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./:/var/www/code
+      - ~/.ssh:/root/.ssh
+    environment:
+      XDEBUG_CONFIG: "client_host=172.17.0.1"
+      PHP_IDE_CONFIG: "serverName=xdebug-docker" #имя сервера в PhpStorm;
+      XDEBUG_MODE: "debug"
+      XDEBUG_SESSION: "PHPSTORM"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
