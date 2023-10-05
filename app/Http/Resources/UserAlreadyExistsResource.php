@@ -7,7 +7,7 @@ namespace App\Http\Resources;
 use app\Domain\Interfaces\User\UserEntity;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserCreatedResource extends JsonResource
+class UserAlreadyExistsResource extends JsonResource
 {
     protected UserEntity $user;
 
@@ -19,12 +19,12 @@ class UserCreatedResource extends JsonResource
     /**
      * @inheritDoc
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'first_name' => $this->user->getFirstName(),
             'last_name' => $this->user->getLastName(),
-            'email' => $this->user->getEmail()
+            'email' => $this->user->getEmail(),
         ];
     }
 }

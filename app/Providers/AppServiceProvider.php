@@ -12,12 +12,12 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            \App\Domain\Interfaces\UserFactory::class,
+            \app\Domain\Interfaces\User\UserFactory::class,
             \App\Factories\Eloquent\UserEloquentModelFactory::class,
         );
 
         $this->app->bind(
-            \App\Domain\Interfaces\UserRepository::class,
+            \app\Domain\Interfaces\User\UserRepository::class,
             \App\Repositories\Eloquent\UserEloquentRepository::class,
         );
 
@@ -26,7 +26,16 @@ class AppServiceProvider extends ServiceProvider
             ->needs(\App\Domain\UseCases\User\CreateUser\CreateUserInputPort::class)
             ->give(function ($app) {
                 return $app->make(\App\Domain\UseCases\User\CreateUser\CreateUserInteractor::class, [
-                    'output' => $app->make(\App\Adapters\Presenters\CreateUserJsonPresenter::class),
+                    'viewModelFactory' => $app->make(\App\Adapters\Presenters\CreateUserJsonPresenter::class),
+                ]);
+            });
+
+        $this->app
+            ->when(\App\Http\Controllers\Api\UserController::class)
+            ->needs(\App\Domain\UseCases\User\GetList\GetUsersInputPort::class)
+            ->give(function ($app) {
+                return $app->make(\App\Domain\UseCases\User\GetList\GetUsersListInteractor::class, [
+                    'viewModelFactory' => $app->make(\App\Adapters\Presenters\CreateUserJsonPresenter::class),
                 ]);
             });
     }

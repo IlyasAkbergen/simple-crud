@@ -6,7 +6,7 @@ namespace App\Domain\UseCases\User\CreateUser;
 
 use App\Domain\Interfaces\ViewModel;
 
-interface CreateUserOutputPort
+interface CreateUserViewModelFactory
 {
     public function userCreated(CreateUserResponseModel $model): ViewModel;
 

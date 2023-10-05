@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCases\User\CreateUser;
 
-use App\Domain\Interfaces\UserEntity;
+use app\Domain\Interfaces\User\UserEntity;
 
 class CreateUserResponseModel
 {

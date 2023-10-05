@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Domain\Interfaces\UserEntity;
+use app\Domain\Interfaces\User\UserEntity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

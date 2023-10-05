@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Factories\Eloquent;
 
-use App\Domain\Interfaces\UserEntity;
-use App\Domain\Interfaces\UserFactory;
+use app\Domain\Interfaces\User\UserEntity;
+use app\Domain\Interfaces\User\UserFactory;
 use App\Models\User;
 
 class UserEloquentModelFactory implements UserFactory
