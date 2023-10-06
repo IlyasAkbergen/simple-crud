@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Collections;
 
-use InvalidArgumentException;
-
-use function ceil;
-
 /**
  * @extends AbstractObjectCollection<T>
  *
@@ -22,7 +18,7 @@ abstract class AbstractPaginatedObjectCollection extends AbstractObjectCollectio
         ...$elements,
     )
     {
-        parent::__construct($elements);
+        parent::__construct(...$elements);
     }
 
     public function getTotal(): int

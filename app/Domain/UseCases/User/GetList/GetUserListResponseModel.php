@@ -4,24 +4,17 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCases\User\GetList;
 
-use app\Domain\Interfaces\User\UserEntity;
+use App\Domain\Collections\UsersCollection;
 
 class GetUserListResponseModel
 {
-    /**
-     * @param UserEntity[] $users,
-     */
     public function __construct(
-        private array $users,
-        // todo add pagination meta data
+        private UsersCollection $usersCollection,
     ) {
     }
 
-    /**
-     * @return UserEntity[]
-     */
-    public function getUsers(): array
+    public function getUsersCollection(): UsersCollection
     {
-        return $this->users;
+        return $this->usersCollection;
     }
 }

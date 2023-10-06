@@ -12,12 +12,12 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            \app\Domain\Interfaces\User\UserFactory::class,
+            \App\Domain\Interfaces\User\UserFactory::class,
             \App\Factories\Eloquent\UserEloquentModelFactory::class,
         );
 
         $this->app->bind(
-            \app\Domain\Interfaces\User\UserRepository::class,
+            \App\Domain\Interfaces\User\UserRepository::class,
             \App\Repositories\Eloquent\UserEloquentRepository::class,
         );
 
@@ -35,7 +35,34 @@ class AppServiceProvider extends ServiceProvider
             ->needs(\App\Domain\UseCases\User\GetList\GetUsersInputPort::class)
             ->give(function ($app) {
                 return $app->make(\App\Domain\UseCases\User\GetList\GetUsersListInteractor::class, [
-                    'viewModelFactory' => $app->make(\App\Adapters\Presenters\CreateUserJsonPresenter::class),
+                    'viewModelFactory' => $app->make(\App\Adapters\Presenters\GetUsersListJsonPresenter::class),
+                ]);
+            });
+
+        $this->app
+            ->when(\App\Http\Controllers\Api\UserController::class)
+            ->needs(\App\Domain\UseCases\User\UpdateUser\UpdateUserInputPort::class)
+            ->give(function ($app) {
+                return $app->make(\App\Domain\UseCases\User\UpdateUser\UpdateUserInteractor::class, [
+                    'viewModelFactory' => $app->make(\App\Adapters\Presenters\UpdateUserJsonPresenter::class),
+                ]);
+            });
+
+        $this->app
+            ->when(\App\Http\Controllers\Api\UserController::class)
+            ->needs(\App\Domain\UseCases\User\ShowUser\ShowUserInputPort::class)
+            ->give(function ($app) {
+                return $app->make(\App\Domain\UseCases\User\ShowUser\ShowUserInteractor::class, [
+                    'viewModelFactory' => $app->make(\App\Adapters\Presenters\ShowUserJsonPresenter::class),
+                ]);
+            });
+
+        $this->app
+            ->when(\App\Http\Controllers\Api\UserController::class)
+            ->needs(\App\Domain\UseCases\User\DeleteUser\DeleteUserInputPort::class)
+            ->give(function ($app) {
+                return $app->make(\App\Domain\UseCases\User\DeleteUser\DeleteUserInteractor::class, [
+                    'viewModelFactory' => $app->make(\App\Adapters\Presenters\DeleteUserJsonPresenter::class),
                 ]);
             });
     }

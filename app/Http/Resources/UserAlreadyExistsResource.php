@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
-use app\Domain\Interfaces\User\UserEntity;
+use App\Domain\Interfaces\User\UserEntity;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserAlreadyExistsResource extends JsonResource

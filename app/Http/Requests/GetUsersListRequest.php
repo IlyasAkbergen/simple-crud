@@ -19,9 +19,9 @@ class GetUsersListRequest extends FormRequest
     {
         return [
             'page' => ['integer', 'min:1'],
-            'perPage' => ['integer', 'min:1'],
-            'sortField' => ['string'],
-            'sortDirection' => [Rule::enum(SortDirection::class)],
+            'per_page' => ['integer', 'min:1'],
+            'sort_field' => ['string'],
+            'sort_direction' => [Rule::enum(SortDirection::class)],
             'first_name' => ['string'],
             'last_name' => ['string'],
             'email' => ['email'],

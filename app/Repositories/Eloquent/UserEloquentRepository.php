@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Repositories\Eloquent;
 
 use App\Domain\Collections\UsersCollection;
-use app\Domain\Interfaces\User\UserEntity;
-use app\Domain\Interfaces\User\UserRepository;
+use App\Domain\Interfaces\User\UserEntity;
+use App\Domain\Interfaces\User\UserRepository;
 use App\Domain\UseCases\User\GetList\GetUsersListRequestModel;
 use App\Models\User;
 
@@ -42,7 +42,10 @@ class UserEloquentRepository implements UserRepository
             $query = $query->where('last_name', $requestModel->getLastName());
         }
 
-        // todo sort
+        $query = $query->orderBy(
+            $requestModel->getSortField() ?? 'last_name',
+            $requestModel->getSortDirection()->value,
+        );
 
         $paginationResult = $query->paginate(
             perPage: $requestModel->getPerPage(),
@@ -55,5 +58,28 @@ class UserEloquentRepository implements UserRepository
             $paginationResult->currentPage(),
             ...$paginationResult->items(),
         );
+    }
+
+    public function getById(int $id): ?UserEntity
+    {
+        return User::find($id);
+    }
+
+    public function update(int $id, UserEntity $user): UserEntity
+    {
+        User::query()
+            ->whereKey($id)
+            ->update([
+                'first_name' => $user->getFirstName(),
+                'last_name' => $user->getLastName(),
+                'email' => $user->getEmail(),
+            ]);
+
+        return $user;
+    }
+
+    public function delete(int $id): bool
+    {
+        return (bool) User::query()->whereKey($id)->delete();
     }
 }

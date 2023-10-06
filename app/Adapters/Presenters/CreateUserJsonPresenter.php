@@ -10,14 +10,14 @@ use App\Domain\UseCases\User\CreateUser\CreateUserViewModelFactory;
 use App\Domain\UseCases\User\CreateUser\CreateUserResponseModel;
 use App\Http\Resources\UnableToCreateUserResource;
 use App\Http\Resources\UserAlreadyExistsResource;
-use App\Http\Resources\UserCreatedResource;
+use App\Http\Resources\UserResource;
 
 class CreateUserJsonPresenter implements CreateUserViewModelFactory
 {
     public function userCreated(CreateUserResponseModel $model): ViewModel
     {
         return new JsonResourceViewModel(
-            new UserCreatedResource($model->getUser())
+            new UserResource($model->getUser())
         );
     }
 

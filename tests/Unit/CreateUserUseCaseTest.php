@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use app\Domain\Interfaces\User\UserEntity;
-use app\Domain\Interfaces\User\UserFactory;
-use app\Domain\Interfaces\User\UserRepository;
+use App\Domain\Interfaces\User\UserEntity;
+use App\Domain\Interfaces\User\UserFactory;
+use App\Domain\Interfaces\User\UserRepository;
 use App\Domain\UseCases\User\CreateUser\CreateUserInteractor;
 use App\Domain\UseCases\User\CreateUser\CreateUserRequestModel;
 use App\Domain\UseCases\User\CreateUser\CreateUserViewModelFactory;

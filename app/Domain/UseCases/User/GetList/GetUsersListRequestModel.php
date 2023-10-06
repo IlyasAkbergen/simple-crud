@@ -6,13 +6,13 @@ use App\Dictionaries\SortDirection;
 
 class GetUsersListRequestModel
 {
-    const DEFAULT_PER_PAGE = 5;
+    public const DEFAULT_PER_PAGE = 5;
 
     public function __construct(private readonly array $attributes) {}
 
     public function getPerPage(): int
     {
-        return $this->attributes['perPage'] ?? self::DEFAULT_PER_PAGE;
+        return $this->attributes['per_page'] ?? self::DEFAULT_PER_PAGE;
     }
 
     public function getPage(): int
@@ -22,7 +22,7 @@ class GetUsersListRequestModel
 
     public function getSortField(): ?string
     {
-        return $this->attributes['sortField'] ?? null;
+        return $this->attributes['sort_field'] ?? null;
     }
 
     public function getSortDirection(): SortDirection

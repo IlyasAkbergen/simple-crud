@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCases\User\CreateUser;
 
-use app\Domain\Interfaces\User\UserFactory;
-use app\Domain\Interfaces\User\UserRepository;
+use App\Domain\Interfaces\User\UserFactory;
+use App\Domain\Interfaces\User\UserRepository;
 use App\Domain\Interfaces\ViewModel;
 
 class CreateUserInteractor implements CreateUserInputPort
@@ -36,7 +36,7 @@ class CreateUserInteractor implements CreateUserInputPort
         }
 
         return $this->viewModelFactory->userCreated(
-            new CreateUserResponseModel($user)
+            new CreateUserResponseModel($user),
         );
     }
 }

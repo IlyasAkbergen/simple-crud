@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use app\Domain\Interfaces\User\UserEntity;
+use App\Domain\Interfaces\User\UserEntity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable implements UserEntity
+class User extends Model implements UserEntity
 {
     use HasFactory;
 
@@ -14,17 +14,6 @@ class User extends Authenticatable implements UserEntity
         'first_name',
         'last_name',
         'email',
-        'password',
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
     public function getFirstName(): string
